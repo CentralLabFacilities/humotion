@@ -1,0 +1,13 @@
+Header header
+
+float32 gaze_pan_l
+float32 gaze_pan_r
+float32 gaze_tilt
+
+float32 mouth_opening_left
+float32 mouth_opening_center
+float32 mouth_opening_right
+
+float32 mouth_position_left
+float32 mouth_position_center
+float32 mouth_position_right

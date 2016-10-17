@@ -1,0 +1,5 @@
+*.user
+*.user.*
+build*
+CMakeLists.txt.user*
+sync_icub03.sh
