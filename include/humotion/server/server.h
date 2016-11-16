@@ -29,7 +29,6 @@
 #define INCLUDE_HUMOTION_SERVER_SERVER_H_
 
 #include <boost/thread/thread.hpp>
-#include <ros/ros.h>
 
 #include <cstdint>
 #include <cstdio>

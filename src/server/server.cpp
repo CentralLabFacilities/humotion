@@ -26,7 +26,7 @@
 */
 
 #include <boost/algorithm/string.hpp>
-
+#include <ros/ros.h>
 #include <string>
 
 #include "humotion/server/middleware_ros.h"
