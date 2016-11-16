@@ -5,7 +5,7 @@
   <description>the human motion library</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
-  <maintainer email="sschulz@todo.todo">Simon Schulz</maintainer>
+  <maintainer email="sschulz@techfak.uni-bielefeld.de">Simon Schulz</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
@@ -17,7 +17,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <url type="website">https://projects.cit-ec.uni-bielefeld.de/git/flobidev.core.git</url> -->
+  <url type="website">https://github.com/CentralLabFacilities/humotion</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
