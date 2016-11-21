@@ -152,11 +152,11 @@ humotion::GazeState Controller::relative_gaze_to_absolute_gaze(humotion::GazeSta
         // therefore we will use the last known targets (see below)
         // in case we did not see this timestamp before, show a warning:
         if (last_known_absolute_timestamp_ != relative_target_timestamp) {
-            printf("> WARNING: restored/guessed absolute target for unknown timestamp %f (tsmap = [%f - %f])"
-                   "[this should only happen during startup]\n", relative_target_timestamp.to_seconds(),
+            printf("> WARNING: restored/guessed absolute target for unknown timestamp "
+                   "%f (tsmap = [%f - %f]) [this should only happen during startup]\n",
+                   relative_target_timestamp.to_seconds(),
                    history_begin.to_seconds(),
-                   history_end.to_seconds()
-                   );
+                   history_end.to_seconds());
             last_known_absolute_target_pan_ = 0.0;
             last_known_absolute_target_tilt_ = 0.0;
             last_known_absolute_target_roll_ = 0.0;
@@ -203,17 +203,18 @@ humotion::GazeState Controller::relative_gaze_to_absolute_gaze(humotion::GazeSta
     // printf("tilt now = %4.1f, rel=%4.1f ===> %4.2f\n", tilt, relative.tilt, absolute_gaze.tilt);
 
     // update the timestamp. this gaze target is now absolute, set appropriate timestamp
-    //printf("%f %f %f 333\n", absolute_gaze.pan, absolute_gaze.tilt, absolute_gaze.roll);
-    //absolute_gaze.tilt = 0.0;
-    //absolute_gaze.roll = 0.0;
+    // printf("%f %f %f 333\n", absolute_gaze.pan, absolute_gaze.tilt, absolute_gaze.roll);
+    // absolute_gaze.tilt = 0.0;
+    // absolute_gaze.roll = 0.0;
 
-    //absolute_gaze.roll = absolute_gaze.pan; //0.012;
+    // absolute_gaze.roll = absolute_gaze.pan; //0.012;
     absolute_gaze.timestamp = Timestamp::now();
 
     // store debug data:
     // this is the position we had at the ts of the relative target
     store_debug_data("controller/pan_neck_position_at_relative_ts", neck_pan);
-    store_debug_data("controller/pan_overall_position_at_relative_ts", last_known_absolute_target_pan_);
+    store_debug_data("controller/pan_overall_position_at_relative_ts",
+                     last_known_absolute_target_pan_);
     // this is the relative movement that was requested
     store_debug_data("controller/pan_target_relative", relative.pan);
     // this is the calculated overall target

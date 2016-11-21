@@ -68,7 +68,7 @@ class MiddlewareROS : public Middleware {
     ros::Subscriber mouth_target_subscriber_;
     ros::Subscriber gaze_target_subscriber_;
 
-    ros::NodeHandle nh_;
+    ros::NodeHandle *nh_;
 
     typedef std::map<std::string, ros::Publisher> debug_topic_map_t;
     debug_topic_map_t debug_topic_map;

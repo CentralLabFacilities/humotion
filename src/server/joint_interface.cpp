@@ -77,8 +77,8 @@ void JointInterface::store_incoming_position(int joint_id, float position, Times
     // following atomic instructions:
     mutex::scoped_lock sl(joint_ts_position_map_access_mutex_);
 
-    //printf("> humotion: incoming joint position for joint id 0x%02X "
-    //"= %4.2f (ts=%.2f)\n",joint_id,position,timestamp.to_seconds());
+    // printf("> humotion: incoming joint position for joint id 0x%02X "
+    // "= %4.2f (ts=%.2f)\n",joint_id,position,timestamp.to_seconds());
     joint_ts_position_map_[joint_id].insert(timestamp, position);
 
     incoming_position_count_++;

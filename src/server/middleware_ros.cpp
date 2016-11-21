@@ -26,9 +26,10 @@
 */
 
 #include <boost/algorithm/string/classification.hpp>
-
 #include <std_msgs/Float32.h>
+
 #include <string>
+#include <utility>
 
 #include "humotion/server/middleware_ros.h"
 
@@ -36,7 +37,7 @@ using humotion::server::MiddlewareROS;
 
 //! constructor
 MiddlewareROS::MiddlewareROS(std::string scope, Controller *c)
-    : Middleware(scope, c), nh_(scope + "/humotion") {
+    : Middleware(scope, c) {
     ROS_DEBUG_STREAM_NAMED("MiddlewareROS", "will use ros middleware");
     debug_initialized_ = false;
 
@@ -59,14 +60,17 @@ MiddlewareROS::MiddlewareROS(std::string scope, Controller *c)
         tick_necessary_ = true;
     }
 
+    // create main node handle
+    nh_ = new ros::NodeHandle(scope + "/humotion");
+
     // create node handle
     ros::NodeHandle pnh("~");
 
     // set up subscribers
-    mouth_target_subscriber_ = nh_.subscribe("mouth/target", 150,
+    mouth_target_subscriber_ = nh_->subscribe("mouth/target", 150,
                                           &MiddlewareROS::incoming_mouth_target ,
                                           this, ros::TransportHints().unreliable());
-    gaze_target_subscriber_  = nh_.subscribe("gaze/target",  150,
+    gaze_target_subscriber_  = nh_->subscribe("gaze/target",  150,
                                           &MiddlewareROS::incoming_gaze_target,
                                           this, ros::TransportHints().unreliable());
 
@@ -176,7 +180,7 @@ void MiddlewareROS::publish_debug_data(std::string name, float value) {
     if (it == debug_topic_map.end()) {
         // we have no publisher for this dataset, create one:
         ROS_DEBUG_STREAM("creating debug output stream " << name);
-        ros::Publisher pub =  nh_.advertise<std_msgs::Float32>("debug_data/" + name, 1000);
+        ros::Publisher pub =  nh_->advertise<std_msgs::Float32>("debug_data/" + name, 1000);
 
         std::pair<debug_topic_map_t::iterator, bool> ret;
         ret = debug_topic_map.insert(std::pair<std::string, ros::Publisher>(name, pub));

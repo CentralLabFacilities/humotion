@@ -148,8 +148,9 @@ void NeckMotionGenerator::calculate_targets() {
     // add breath wave to tilt
     neck_tilt_target += get_breath_offset();
 
-    //neck_roll_target = 0.0;
-    //printf("%f %f %f %f ROLL\n", neck_pan_target, neck_roll_target, neck_roll_now, neck_roll_speed);
+    // neck_roll_target = 0.0;
+    // printf("%f %f %f %f ROLL\n", neck_pan_target,
+    // neck_roll_target, neck_roll_now, neck_roll_speed);
 
     // pass parameters to reflexxes api
     setup_neckmotion(0, neck_pan_target,  neck_pan_now,  neck_pan_speed,  neck_pan_ts);
@@ -173,7 +174,7 @@ void NeckMotionGenerator::calculate_targets() {
                                 reflexxes_position_output->NewPositionVector->VecData[2],
                                 reflexxes_position_output->NewVelocityVector->VecData[2]);
 
-    //printf("%f %f %f RRR\n", );
+    // printf("%f %f %f RRR\n", );
 
     /*printf("\n%f %f %f %f %f DBG\n",
             neck_pan_now, neck_pan_target,

@@ -42,7 +42,7 @@ ReflexxesMotionGenerator::ReflexxesMotionGenerator(JointInterface *j, Config *c,
 
     // synchronize phase
     reflexxes_motion_flags.SynchronizationBehavior =
-            //RMLPositionFlags::NO_SYNCHRONIZATION;
+            // RMLPositionFlags::NO_SYNCHRONIZATION;
             RMLPositionFlags::PHASE_SYNCHRONIZATION_IF_POSSIBLE;
 }
 
