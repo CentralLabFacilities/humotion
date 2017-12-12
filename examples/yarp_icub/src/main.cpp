@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     // create humotion interface
     iCubJointInterface *icub_jointinterface = new iCubJointInterface(scope);
     humotion::server::Server *humotion_server =
-            new humotion::server::Server("/icub", "ROS", icub_jointinterface);
+            new humotion::server::Server(scope, "ROS", icub_jointinterface);
 
     icub_jointinterface->run();
 
