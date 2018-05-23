@@ -36,7 +36,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 catkin_package(
     INCLUDE_DIRS include
     LIBRARIES humotion
-    #CATKIN_DEPENDS message_runtime
+    CATKIN_DEPENDS m3meka_msgs
     #DEPENDS system_lib
 )
 
