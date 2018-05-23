@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
     message_generation
     genmsg
     dynamic_reconfigure
+    m3meka_msgs
 )
 
 IF (NOT catkin_FOUND)
