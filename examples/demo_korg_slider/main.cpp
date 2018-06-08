@@ -47,13 +47,13 @@ void slidervalues_to_mouthstate(KorgInput *input, humotion::MouthState *result){
 		return;
 	}
 	
-	if (input->get_slider(MOUTH_POSITION_LEFT,  &tmp))result->position_left   = 0.0 + 40.0 * (1.0-to_float(tmp));
-	if (input->get_slider(MOUTH_POSITION_CENTER,  &tmp))result->position_center = 0.0 + 40.0 * (1.0-to_float(tmp));
-	if (input->get_slider(MOUTH_POSITION_RIGHT,  &tmp))result->position_right  = 0.0 + 40.0 * (1.0-to_float(tmp));
+	if (input->get_slider(MOUTH_POSITION_LEFT,  &tmp))result->position_left   = 0.0 + 30.0 * (1.0-to_float(tmp));
+	if (input->get_slider(MOUTH_POSITION_CENTER,  &tmp))result->position_center = 0.0 + 30.0 * (1.0-to_float(tmp));
+	if (input->get_slider(MOUTH_POSITION_RIGHT,  &tmp))result->position_right  = 0.0 + 30.0 * (1.0-to_float(tmp));
 
-	if (input->get_pot(MOUTH_OPENING_LEFT,  &tmp)) result->opening_left   = 40.0 * to_float(tmp);
-	if (input->get_pot(MOUTH_OPENING_CENTER,  &tmp)) result->opening_center= 40.0 * to_float(tmp);
-	if (input->get_pot(MOUTH_OPENING_RIGHT,  &tmp)) result->opening_right  = 40.0 * to_float(tmp);
+	if (input->get_pot(MOUTH_OPENING_LEFT,  &tmp)) result->opening_left   = 30.0 * to_float(tmp);
+	if (input->get_pot(MOUTH_OPENING_CENTER,  &tmp)) result->opening_center= 30.0 * to_float(tmp);
+	if (input->get_pot(MOUTH_OPENING_RIGHT,  &tmp)) result->opening_right  = 30.0 * to_float(tmp);
 
 	//printf("OOO %4.2f %4.2f\n",result.opening_center, result.position_center);
 }
