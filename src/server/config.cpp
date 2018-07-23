@@ -60,16 +60,16 @@ void Config::init_defaults() {
     // [Guitton87] "Gaze control in humans: eye-head coordination during orienting movements ..."
     // In order to allow better adaption to the robot capabilities humotion allows to
     // scale the calculated velocity, value is given in percent (NOTE: 1.0 = 100% human velocity)
-    scale_velocity_neck = 0.45;
+    scale_velocity_neck = 0.3;
 
     // scale acceleration
-    scale_acceleration_neck = 0.55;
+    scale_acceleration_neck = 0.3;
 
     // additionally humotion allows to limit the maximum velocity, value is given in deg/s
-    limit_velocity_neck = 700.0;
+    limit_velocity_neck = 300.0;
 
     // limit the maximum acceleration, value is given in deg/s^2
-    limit_acceleration_neck = 1000.0;
+    limit_acceleration_neck = 600.0;
 
     // eye motion generation configuration
     // scale the calculated velocity, value is given in percent (NOTE: 1.0 = 100% human velocity)
@@ -112,12 +112,12 @@ void Config::init_defaults() {
     // occurance of periodic eyeblinks, uniformly distributed over the given range
     // typical values for a human are one blink every 2...10s
     // values are given in seconds
-    eyeblink_periodic_distribution_lower = 2.0;
-    eyeblink_periodic_distribution_upper = 10.0;
+    eyeblink_periodic_distribution_lower = 5.0;
+    eyeblink_periodic_distribution_upper = 15.0;
 
     // probability that one eye saccade causes an eyeblink, value given in percent
     // for humans this is up to 95%, this gets quite annoying on the robot so the default is lower
-    eyeblink_probability_after_saccade = 0.33;
+    eyeblink_probability_after_saccade = 0.2;
 
     // blocking time where further eyeblinks are suppressed, value given in seconds
     eyeblink_blocked_time = 1.0;

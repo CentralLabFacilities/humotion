@@ -7,7 +7,7 @@ set(ROS_BUILD_TYPE Debug)
 
 ################################################################
 # check for ROS support:
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs message_generation genmsg)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs sensor_msgs message_generation genmsg m3meka_msgs)
 IF (catkin_FOUND)
     set(ROS_FOUND 1)
     message(STATUS "ROS Support is ON")
