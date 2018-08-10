@@ -152,6 +152,11 @@ void NeckMotionGenerator::calculate_targets() {
     // printf("%f %f %f %f ROLL\n", neck_pan_target,
     // neck_roll_target, neck_roll_now, neck_roll_speed);
 
+    // check and take care of limits
+    neck_pan_target  = limit_target(JointInterface::ID_NECK_PAN, neck_pan_target);
+    neck_tilt_target = limit_target(JointInterface::ID_NECK_TILT, neck_tilt_target);
+    neck_roll_target = limit_target(JointInterface::ID_NECK_ROLL, neck_roll_target);
+
     // pass parameters to reflexxes api
     setup_neckmotion(0, neck_pan_target,  neck_pan_now,  neck_pan_speed,  neck_pan_ts);
     setup_neckmotion(1, neck_tilt_target, neck_tilt_now, neck_tilt_speed, neck_tilt_ts);

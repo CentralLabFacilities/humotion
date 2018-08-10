@@ -100,12 +100,14 @@ void MiddlewareROS::dynamic_reconfigure_callback(const humotion::humotionConfig 
     config->scale_acceleration_neck = dyn_config.scale_acceleration_neck;
     config->limit_velocity_neck = dyn_config.limit_velocity_neck;
     config->limit_acceleration_neck = dyn_config.limit_acceleration_neck;
+    config->limit_mr_neck = dyn_config.limit_mr_neck;
 
     // eye motion generation configuration
     config->scale_velocity_eye = dyn_config.scale_velocity_eye;
     config->scale_acceleration_eye = dyn_config.scale_acceleration_eye;
     config->limit_velocity_eye = dyn_config.limit_velocity_eye;
     config->limit_acceleration_eye = dyn_config.limit_acceleration_eye;
+    config->limit_omr_eye = dyn_config.limit_omr_eye;
 
     // parameters fo the breathing pattern
     config->breath_period = dyn_config.breath_period;

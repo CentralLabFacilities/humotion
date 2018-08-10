@@ -169,6 +169,34 @@ float MotionGenerator::limit_target(int joint_id, float val) {
         exit(0);
     }
 
+    float limit_factor = 1.0;
+    switch(joint_id){
+        default:
+            limit_factor = 1.0;
+            break;
+
+        case(JointInterface::ID_EYES_LEFT_LR):
+        case(JointInterface::ID_EYES_RIGHT_LR):
+        case(JointInterface::ID_EYES_BOTH_UD):
+            limit_factor = config->limit_omr_eye;
+            break;
+
+        case(JointInterface::ID_NECK_PAN):
+        case(JointInterface::ID_NECK_TILT):
+        case(JointInterface::ID_NECK_ROLL):
+            limit_factor = config->limit_mr_neck;
+            break;
+    }
+
+    float center = (min + max)/2;
+    float diff_min = center - min;
+    float min_new  = - limit_factor * diff_min + center;
+    float diff_max = max - center;
+    float max_new  = limit_factor * diff_max + center;
+    //printf("LIMIT: in [%3.1f:%3.1f] --> [%3.1f:%3.1f]\n",min,max,min_new,max_new);
+    min = min_new;
+    max = max_new;
+
     val = fmin(val, max);
     val = fmax(val, min);
 

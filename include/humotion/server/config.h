@@ -67,6 +67,9 @@ class Config {
     float scale_acceleration_eye;
     float limit_velocity_eye;
     float limit_acceleration_eye;
+    float limit_omr_eye;
+    float limit_mr_neck;
+
     bool use_neck_target_instead_of_position_eye;
 
     // parameters fo the breathing pattern

@@ -84,6 +84,11 @@ void Config::init_defaults() {
     // limit the maximum acceleration, value is given in deg/s^2
     limit_acceleration_eye = 80000;
 
+    // limit the omr range of eye motion. this is used to prevent "eye glitches"
+    // where the eye is in a strange side/up poition for a longer period.
+    limit_omr_eye  = 0.8;
+    limit_mr_neck = 0.8;
+
     // calculate the overall target distance based on neck target instead of using the real neck
     // position
     use_neck_target_instead_of_position_eye = true;
