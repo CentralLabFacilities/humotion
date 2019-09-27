@@ -170,7 +170,7 @@ float MotionGenerator::limit_target(int joint_id, float val) {
     }
 
     float limit_factor = 1.0;
-    switch(joint_id){
+    switch (joint_id) {
         default:
             limit_factor = 1.0;
             break;
@@ -193,7 +193,7 @@ float MotionGenerator::limit_target(int joint_id, float val) {
     float min_new  = - limit_factor * diff_min + center;
     float diff_max = max - center;
     float max_new  = limit_factor * diff_max + center;
-    //printf("LIMIT: in [%3.1f:%3.1f] --> [%3.1f:%3.1f]\n",min,max,min_new,max_new);
+    // printf("LIMIT: in [%3.1f:%3.1f] --> [%3.1f:%3.1f]\n",min,max,min_new,max_new);
     min = min_new;
     max = max_new;
 
