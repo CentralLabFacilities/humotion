@@ -112,6 +112,7 @@ void Config::init_defaults() {
 
     // parameters for eye blinking
     // duration for one eyeblink, value is given in seconds
+	// set duration to zero in order to disable eyeblinks
     eyeblink_duration = 0.15;
 
     // occurance of periodic eyeblinks, uniformly distributed over the given range
