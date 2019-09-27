@@ -36,6 +36,10 @@ JointInterface::JointInterface() {
     framerate = 50.0;
     mouth_enabled_ = false;
     gaze_enabled_  = false;
+    for (unsigned int i=0; i < JOINT_ID_ENUM_SIZE; ++i)
+        joint_min[i] = 0.0;
+    for (unsigned int i=0; i < JOINT_ID_ENUM_SIZE; ++i)
+        joint_max[i] = 0.0;
 }
 
 //! destructor
