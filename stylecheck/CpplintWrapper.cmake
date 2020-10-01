@@ -3,24 +3,19 @@
 # We are not that pedantic. However, we will keep an eye on the count of warnings.
 # Related parameters:
 #   Setting variable ENABLE_CPPLINT to true will enable cpplint.
-set(Python_ADDITIONAL_VERSIONS 2.7 2.6 2.5 2.4) # Prefer Python-2
-find_package(PythonInterp)
-if(PYTHONINTERP_FOUND)
-    message(STATUS "Found Python. Python version is ${PYTHON_VERSION_STRING}.")
-    if(${PYTHON_VERSION_MAJOR} EQUAL 3)
-        message(WARNING "OUCH! The Python found is Python 3. Cpplint.py doesn't run on it so far.")
-        message(WARNING "Cpplint won't detect errors. Install Python 2 to fix this issue.")
-    endif(${PYTHON_VERSION_MAJOR} EQUAL 3)
-    if(ENABLE_CPPLINT)
+if(ENABLE_CPPLINT)
+    find_package(PythonInterp)
+        if(PYTHONINTERP_FOUND)
+        message(STATUS "Found Python. Python version is ${PYTHON_VERSION_STRING}.")
         set(RUN_CPPLINT true)
-    else(ENABLE_CPPLINT)
-        message(STATUS "ENABLE_CPPLINT was not given. Skipped running cpplint")
+    else(PYTHONINTERP_FOUND)
+        message(STATUS "python executable not found. Skipped running cpplint")
         set(RUN_CPPLINT false)
-    endif(ENABLE_CPPLINT)
-else(PYTHONINTERP_FOUND)
-    message(STATUS "python executable not found. Skipped running cpplint")
+    endif(PYTHONINTERP_FOUND)
+else(ENABLE_CPPLINT)
+    message(STATUS "ENABLE_CPPLINT was not given. Skipped running cpplint")
     set(RUN_CPPLINT false)
-endif(PYTHONINTERP_FOUND)
+endif(ENABLE_CPPLINT)
 
 # Followings are our coding convention.
 set(LINT_FILTER) # basically everything Google C++ Style recommends. Except...
@@ -36,7 +31,7 @@ set(LINT_FILTER ${LINT_FILTER},-readability/streams)
 
 # We use C++11 with some restrictions.
 # set(LINT_FILTER ${LINT_FILTER},-build/c++11)
-# 
+#
 
 # Consider disabling them if they cause too many false positives.
 # set(LINT_FILTER ${LINT_FILTER},-build/include_what_you_use)
