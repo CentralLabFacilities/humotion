@@ -51,7 +51,10 @@ import sre_compile
 import string
 import sys
 import unicodedata
-from builtins import range  # for python 2/3 compatibility
+try:
+  range = xrange  # in python2 replace range with xrange
+except NameError:
+  pass  # in python3 range already behaves like xrange
 
 
 _USAGE = """
