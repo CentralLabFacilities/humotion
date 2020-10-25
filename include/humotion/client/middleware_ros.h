@@ -27,7 +27,6 @@
 #ifndef INCLUDE_HUMOTION_CLIENT_MIDDLEWARE_ROS_H_
 #define INCLUDE_HUMOTION_CLIENT_MIDDLEWARE_ROS_H_
 
-#include <boost/shared_ptr.hpp>
 #include <ros/ros.h>
 
 #include <string>

@@ -28,10 +28,8 @@
 #ifndef INCLUDE_HUMOTION_SERVER_JOINT_INTERFACE_H_
 #define INCLUDE_HUMOTION_SERVER_JOINT_INTERFACE_H_
 
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/thread.hpp>
-#include <boost/thread/thread_time.hpp>
 
 #include <cstdint>
 #include <cstdio>

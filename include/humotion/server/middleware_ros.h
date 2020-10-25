@@ -28,7 +28,6 @@
 #ifndef INCLUDE_HUMOTION_SERVER_MIDDLEWARE_ROS_H_
 #define INCLUDE_HUMOTION_SERVER_MIDDLEWARE_ROS_H_
 
-#include <boost/shared_ptr.hpp>
 #include <dynamic_reconfigure/server.h>
 #include <ros/ros.h>
 

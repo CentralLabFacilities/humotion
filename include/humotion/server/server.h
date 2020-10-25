@@ -28,8 +28,6 @@
 #ifndef INCLUDE_HUMOTION_SERVER_SERVER_H_
 #define INCLUDE_HUMOTION_SERVER_SERVER_H_
 
-#include <boost/thread/thread.hpp>
-
 #include <cstdint>
 #include <cstdio>
 #include <string>

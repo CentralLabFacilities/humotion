@@ -180,7 +180,7 @@ void NeckMotionGenerator::calculate_targets() {
 	        );*/
 
 	/*printf("\n%f %f %f %f %f #GAZELOG\n",
-	        boost::get_system_time().time_of_day().total_milliseconds()/1000.0,
+	        std::chrono::steady_clock::now().time_of_day().total_milliseconds()/1000.0,
 	        requested_gaze_state_.pan + requested_gaze_state_.pan_offset,
 	        get_current_gaze().pan,
 	        (get_current_position(JointInterface::ID_EYES_LEFT_LR) +

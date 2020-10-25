@@ -1,14 +1,12 @@
 #include <cstdio>
 #include <stdio.h>
 #include <string.h>
+#include <chrono>
+#include <thread>
 
 #include "korg_input.h"
 #include "humotion/client/client.h"
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include <boost/thread/thread_time.hpp>
-#include <boost/thread/thread.hpp>
 
-using namespace boost;
 humotion::GazeState last_awake_state;
 bool awake_state;
 
@@ -196,10 +194,9 @@ int main(int argc, char** argv) {
 	// human motion connection:
 	humotion::client::Client* client = new humotion::client::Client(argv[1], "ROS");
 
-	// send values to human motion server
-	float loop_delay = 1000.0 / 50.0; // run with 50Hz
-
-	boost::system_time timeout = get_system_time() + posix_time::milliseconds(loop_delay);
+	// send values to human motion server at 50Hz
+	const auto loop_period = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::duration<float>(1.0 / 50));
+	auto timeout = std::chrono::steady_clock::now() + loop_period;
 
 	while (client->ok()) {
 		// allow middleware to process data
@@ -228,7 +225,7 @@ int main(int argc, char** argv) {
 		client->update_gaze_target(gaze_state);
 		client->send_all();
 
-		thread::sleep(timeout);
-		timeout = get_system_time() + posix_time::milliseconds(loop_delay);
+		std::this_thread::sleep_until(timeout);
+		timeout += loop_period;
 	}
 }

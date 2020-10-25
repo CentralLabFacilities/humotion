@@ -28,10 +28,9 @@
 #ifndef INCLUDE_HUMOTION_SERVER_MOTION_GENERATOR_H_
 #define INCLUDE_HUMOTION_SERVER_MOTION_GENERATOR_H_
 
-#include <boost/date_time/posix_time/posix_time.hpp>
-
 #include <map>
 #include <string>
+#include <chrono>
 
 #include "humotion/server/config.h"
 #include "humotion/server/joint_interface.h"
@@ -69,11 +68,11 @@ protected:
 
 	// gaze
 	GazeState requested_gaze_state_;
-	boost::system_time last_gaze_target_update_;
+	std::chrono::time_point<std::chrono::steady_clock> last_gaze_target_update_;
 
 	// mouth
 	MouthState requested_mouth_target_;
-	boost::system_time last_mouth_target_update_;
+	std::chrono::time_point<std::chrono::steady_clock> last_mouth_target_update_;
 };
 
 } // namespace server

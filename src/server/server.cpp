@@ -28,6 +28,8 @@
 #include <boost/algorithm/string.hpp>
 #include <ros/ros.h>
 #include <string>
+#include <chrono>
+#include <thread>
 
 #include "humotion/server/middleware_ros.h"
 #include "humotion/server/server.h"
@@ -90,10 +92,11 @@ void Server::motion_generation_thread() {
 
 	printf("> started motion generation thread\n");
 
-	// calculate loop delay
-	float loop_delay = 1000.0 / MOTION_UPDATERATE;
-	boost::system_time timeout = boost::get_system_time() + boost::posix_time::milliseconds(loop_delay);
-	printf("> one loop = %3.1fms\n", loop_delay);
+	// calculate loop period
+	const auto loop_period =
+	   std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::duration<float>(1.0 / MOTION_UPDATERATE));
+	auto timeout = std::chrono::steady_clock::now() + loop_period;
+	printf("> one loop = %ldms\n", loop_period.count());
 
 	// wait for incoming joint data
 	while (middleware_->ok()) {
@@ -114,8 +117,8 @@ void Server::motion_generation_thread() {
 			break;
 		}
 
-		boost::thread::sleep(timeout);
-		timeout = boost::get_system_time() + boost::posix_time::milliseconds(loop_delay);
+		std::this_thread::sleep_until(timeout);
+		timeout += loop_period;
 	}
 
 	printf("> joint data arrived, control loop active.\n");
@@ -153,8 +156,8 @@ void Server::motion_generation_thread() {
 			incoming_data_count_invalid = 0;
 		}
 
-		boost::thread::sleep(timeout);
-		timeout = boost::get_system_time() + boost::posix_time::milliseconds(loop_delay);
+		std::this_thread::sleep_until(timeout);
+		timeout += loop_period;
 	}
 
 	printf("> motion generation thread exited.\n");

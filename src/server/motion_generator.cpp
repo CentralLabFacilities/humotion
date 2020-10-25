@@ -25,8 +25,6 @@
  * Excellence Initiative.
  */
 
-#include <boost/date_time/posix_time/posix_time.hpp>
-
 #include <string>
 #include <utility>
 
@@ -40,8 +38,8 @@ using humotion::server::MotionGenerator;
 MotionGenerator::MotionGenerator(JointInterface* j, Config* cfg) {
 	config = cfg;
 	joint_interface_ = j;
-	last_mouth_target_update_ = boost::posix_time::ptime(boost::posix_time::min_date_time);
-	last_gaze_target_update_ = boost::posix_time::ptime(boost::posix_time::min_date_time);
+	last_mouth_target_update_ = last_mouth_target_update_.min();
+	last_gaze_target_update_ = last_mouth_target_update_.min();
 }
 
 //! destructor
@@ -110,7 +108,7 @@ void MotionGenerator::set_gaze_target(GazeState new_gaze_target) {
 	requested_gaze_state_ = new_gaze_target;
 
 	// keep track if the gaze targets are comming in regulary
-	last_gaze_target_update_ = boost::get_system_time();
+	last_gaze_target_update_ = std::chrono::steady_clock::now();
 }
 
 //! update mouth state:
@@ -120,13 +118,13 @@ void MotionGenerator::set_mouth_target(MouthState s) {
 	requested_mouth_target_ = s;
 
 	// keep track if the mouth targets are comming in regulary
-	last_mouth_target_update_ = boost::get_system_time();
+	last_mouth_target_update_ = std::chrono::steady_clock::now();
 }
 
 //! was there incoming gaze data the last second?
 //! \return true if there was data incoming in the last second, false otherwise
 bool MotionGenerator::gaze_target_input_active() {
-	if (last_gaze_target_update_ + boost::posix_time::milliseconds(1000) > boost::get_system_time()) {
+	if (last_gaze_target_update_ + std::chrono::seconds(1) > std::chrono::steady_clock::now()) {
 		// incoming data -> if gaze is disabled, enable it!
 		joint_interface_->enable_gaze_joints();
 		return true;
@@ -140,7 +138,7 @@ bool MotionGenerator::gaze_target_input_active() {
 //! was there incoming mouth data the last second?
 //! \return true if there was data incoming in the last second, false otherwise
 bool MotionGenerator::mouth_target_input_active() {
-	if (last_mouth_target_update_ + boost::posix_time::milliseconds(1000) > boost::get_system_time()) {
+	if (last_mouth_target_update_ + std::chrono::seconds(1) > std::chrono::steady_clock::now()) {
 		// incoming data -> if mouth is disabled, enable it!
 		joint_interface_->enable_mouth_joints();
 		return true;

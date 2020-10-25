@@ -28,8 +28,7 @@
 #ifndef INCLUDE_HUMOTION_SERVER_EYELID_MOTION_GENERATOR_H_
 #define INCLUDE_HUMOTION_SERVER_EYELID_MOTION_GENERATOR_H_
 
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/thread/thread_time.hpp>
+#include <chrono>
 
 #include "humotion/server/eye_motion_generator.h"
 
@@ -67,9 +66,9 @@ private:
 	bool eyeblink_active_[2];
 	bool eyelid_closed_[2];
 
-	boost::system_time periodic_blink_start_time_;
-	boost::system_time eyeblink_timeout_[2];
-	boost::system_time eyeblink_blocked_timeout_;
+	std::chrono::time_point<std::chrono::steady_clock> periodic_blink_start_time_;
+	std::chrono::time_point<std::chrono::steady_clock> eyeblink_timeout_[2];
+	std::chrono::time_point<std::chrono::steady_clock> eyeblink_blocked_timeout_;
 };
 
 } // namespace server

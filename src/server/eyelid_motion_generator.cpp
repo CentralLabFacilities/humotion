@@ -27,14 +27,12 @@
 
 #include "humotion/server/eyelid_motion_generator.h"
 #include "humotion/server/server.h"
-
-// using namespace boost;
-// using namespace std;
-// using namespace humotion;
-// using namespace humotion::server;
+#include <random>
 
 using humotion::server::Config;
 using humotion::server::EyelidMotionGenerator;
+
+static std::minstd_rand random_engine;
 
 //! constructor
 EyelidMotionGenerator::EyelidMotionGenerator(JointInterface* j, Config* cfg) : EyeMotionGenerator(j, cfg) {
@@ -44,10 +42,10 @@ EyelidMotionGenerator::EyelidMotionGenerator(JointInterface* j, Config* cfg) : E
 	for (int i = 0; i < 2; i++) {
 		eyelid_closed_[i] = false;
 		eyeblink_active_[i] = false;
-		eyeblink_timeout_[i] = boost::get_system_time();
+		eyeblink_timeout_[i] = std::chrono::steady_clock::now();
 	}
 
-	eyeblink_blocked_timeout_ = boost::get_system_time();
+	eyeblink_blocked_timeout_ = std::chrono::steady_clock::now();
 }
 
 //! destructor
@@ -113,7 +111,7 @@ void EyelidMotionGenerator::start_external_eyeblinks(int duration_left, int dura
 	// manual eyeblinks will ALWAYs get executed as we use
 	// a negative block timeout (=timeout has already passed)
 	if ((duration_left != 0) || (duration_right != 0)) {
-		eyeblink_blocked_timeout_ = boost::get_system_time() - boost::posix_time::seconds(100);
+		eyeblink_blocked_timeout_ = std::chrono::steady_clock::now() - std::chrono::seconds(100);
 	}
 
 	if (duration_left == 0) {
@@ -148,8 +146,7 @@ void EyelidMotionGenerator::start_external_eyeblinks(int duration_left, int dura
 void EyelidMotionGenerator::process_saccadic_eyeblinks() {
 	if (saccade_blink_requested_) {
 		// every n-th's saccade requests an eyeblink
-		float frnd = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
-		if (frnd <= config->eyeblink_probability_after_saccade) {
+		if (std::bernoulli_distribution(config->eyeblink_probability_after_saccade)(random_engine)) {
 			printf("> saccadic eyeblink:\n");
 			start_eyeblink(LEFT, config->eyeblink_duration * 1000.0);
 			start_eyeblink(RIGHT, config->eyeblink_duration * 1000.0);
@@ -162,18 +159,15 @@ void EyelidMotionGenerator::process_saccadic_eyeblinks() {
 //! -> we want to have an eyeblink every n...m seconds
 void EyelidMotionGenerator::process_periodic_eyeblinks() {
 	if (eyeblink_active_[LEFT] || eyeblink_active_[RIGHT]) {
-		float range = config->eyeblink_periodic_distribution_upper - config->eyeblink_periodic_distribution_lower;
-
-		// random number 0...1
-		float frnd = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
-
-		// calculate next timeout for a new periodic eyeblink
-		float seconds_to_next_blink = config->eyeblink_periodic_distribution_lower + frnd * range;
-
-		periodic_blink_start_time_ = boost::get_system_time() + boost::posix_time::seconds(seconds_to_next_blink);
+		std::uniform_real_distribution<float> uniform(config->eyeblink_periodic_distribution_lower,
+		                                              config->eyeblink_periodic_distribution_upper);
+		// random timeout for a new periodic eyeblink
+		std::chrono::duration<float> seconds_to_next_blink(uniform(random_engine));
+		periodic_blink_start_time_ =
+		   std::chrono::steady_clock::now() + std::chrono::duration_cast<std::chrono::milliseconds>(seconds_to_next_blink);
 	}
 
-	if (boost::get_system_time() > periodic_blink_start_time_) {
+	if (std::chrono::steady_clock::now() > periodic_blink_start_time_) {
 		// printf("> periodic eyeblink:\n");
 		start_eyeblink(LEFT, config->eyeblink_duration * 1000.0);
 		start_eyeblink(RIGHT, config->eyeblink_duration * 1000.0);
@@ -183,7 +177,7 @@ void EyelidMotionGenerator::process_periodic_eyeblinks() {
 //! handle eyeblink timeouts.
 //! this function will actually re-open the eyes after a predefined time
 void EyelidMotionGenerator::handle_eyeblink_timeout() {
-	boost::system_time now = boost::get_system_time();
+	auto now = std::chrono::steady_clock::now();
 
 	// take care of re-opening eye timeout
 	for (int i = LEFT; i <= RIGHT; i++) {
@@ -196,7 +190,8 @@ void EyelidMotionGenerator::handle_eyeblink_timeout() {
 
 	// take care of blocking time
 	if (eyeblink_active_[LEFT] || eyeblink_active_[RIGHT]) {
-		eyeblink_blocked_timeout_ = boost::get_system_time() + boost::posix_time::seconds(config->eyeblink_blocked_time);
+		eyeblink_blocked_timeout_ = now + std::chrono::duration_cast<std::chrono::milliseconds>(
+		                                     std::chrono::duration<float>(config->eyeblink_blocked_time));
 	}
 }
 
@@ -248,12 +243,12 @@ void EyelidMotionGenerator::close_eyelid(int joint_id) {
 //! \param int id of side (LEFT or RIGHT)
 void EyelidMotionGenerator::start_eyeblink(int side, int duration) {
 	// cout << "BLOCKED UNTIL " << eyeblink_blocked_timeout << "\n";
-	if (boost::get_system_time() < eyeblink_blocked_timeout_) {
+	if (std::chrono::steady_clock::now() < eyeblink_blocked_timeout_) {
 		// return if we are still in the block time
 		return;
 	}
 	// request for n ms eyeblink:
-	eyeblink_timeout_[side] = boost::get_system_time() + boost::posix_time::milliseconds(duration);
+	eyeblink_timeout_[side] = std::chrono::steady_clock::now() + std::chrono::milliseconds(duration);
 
 	eyeblink_active_[side] = true;
 }
