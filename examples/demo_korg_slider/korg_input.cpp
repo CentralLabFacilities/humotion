@@ -66,8 +66,6 @@ int KorgInput::fetch_device_id(const char* name, bool output = false) {
 //! open device
 //! \return true if device is found, false otherwise
 bool KorgInput::open_device() {
-	PmEvent buffer[1];
-
 	// standard is type1:
 	device_type = NANO_KONTROL;
 

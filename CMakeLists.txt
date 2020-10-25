@@ -193,7 +193,9 @@ endif()
 
 
 #finally build (some) examples
-#add_subdirectory(./examples)
+#add_subdirectory(examples/demo_korg_slider)
+#add_subdirectory(examples/meka)
+#add_subdirectory(examples/yarp_icub)
 
 
 #################
