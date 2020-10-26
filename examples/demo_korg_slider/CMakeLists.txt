@@ -13,7 +13,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 INCLUDE(FindPkgConfig)
 
 # search for Boost version 1.34
-find_package( Boost 1.40 COMPONENTS thread program_options system filesystem regex )
+find_package( Boost 1.40 COMPONENTS program_options filesystem regex )
 link_directories ( ${Boost_LIBRARY_DIRS}  )
 include_directories ( ${Boost_INCLUDE_DIRS} )
 

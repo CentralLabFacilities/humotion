@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.1.3)
 project(humotion)
 
+if(NOT "${CMAKE_CXX_STANDARD}")
+  set(CMAKE_CXX_STANDARD 11)
+endif()
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 set(ENV{ROS_LANG_DISABLE} "genjava")
 
 set(ROS_BUILD_TYPE Debug)

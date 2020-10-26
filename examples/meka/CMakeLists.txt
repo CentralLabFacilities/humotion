@@ -18,7 +18,6 @@ IF (NOT catkin_FOUND)
   message(FATAL_ERROR "Error: could not find ROS!")
 ENDIF ()
 
-FIND_PACKAGE(Boost REQUIRED COMPONENTS system thread)
 FIND_PACKAGE(humotion REQUIRED)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
@@ -43,8 +42,8 @@ catkin_package(
 include_directories( ${catkin_INCLUDE_DIRS})
 
 # add include directories
-INCLUDE_DIRECTORIES(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS} ${humotion_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} include/)
-link_directories(${Boost_LIBRARY_DIRS} ${humotion_LIBRARY_DIRS})
+INCLUDE_DIRECTORIES(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS} ${humotion_INCLUDE_DIRS} include/)
+link_directories(${humotion_LIBRARY_DIRS})
 
 # add required linker flags
 
@@ -54,7 +53,7 @@ file(GLOB DUMMY_HEADER_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} include/*.h)
 #add_dependencies(${MAIN} ${catkin_EXPORTED_TARGETS})
 ADD_EXECUTABLE(${MAIN} src/main.cpp src/mekajointinterface.cpp ${DUMMY_HEADER_LIST})
 
-TARGET_LINK_LIBRARIES(${MAIN} ${Boost_LIBRARIES} ${catkin_LIBRARIES} ${humotion_LIBRARIES})
+TARGET_LINK_LIBRARIES(${MAIN} ${catkin_LIBRARIES} ${humotion_LIBRARIES})
 set_property(TARGET ${MAIN} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 

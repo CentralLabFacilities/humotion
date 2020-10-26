@@ -3,14 +3,13 @@ cmake_minimum_required(VERSION 2.8)
 
 FIND_PACKAGE(YARP)
 FIND_PACKAGE(ICUB)
-FIND_PACKAGE(Boost REQUIRED COMPONENTS system thread)
 FIND_PACKAGE(humotion)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 # add include directories
-INCLUDE_DIRECTORIES(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS} ${humotion_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} include/)
-link_directories(${Boost_LIBRARY_DIRS} ${humotion_LIBRARY_DIRS})
+INCLUDE_DIRECTORIES(${YARP_INCLUDE_DIRS} ${ICUB_INCLUDE_DIRS} ${humotion_INCLUDE_DIRS} include/)
+link_directories(${humotion_LIBRARY_DIRS})
 
 # add required linker flags
 SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${ICUB_LINK_FLAGS}")
@@ -21,7 +20,7 @@ file(GLOB DUMMY_HEADER_LIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} include/*.h)
 ADD_EXECUTABLE(${MAIN} src/main.cpp src/icub_jointinterface.cpp src/icub_faceinterface.cpp src/icub_data_receiver.cpp ${DUMMY_HEADER_LIST})
 
 # we now add the YARP and iCub libraries to our project.
-TARGET_LINK_LIBRARIES(${MAIN} ${Boost_LIBRARIES} ${YARP_LIBRARIES} ${ICUB_LIBRARIES} ${humotion_LIBRARIES})
+TARGET_LINK_LIBRARIES(${MAIN} ${YARP_LIBRARIES} ${ICUB_LIBRARIES} ${humotion_LIBRARIES})
 set_property(TARGET ${MAIN} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 INSTALL(TARGETS ${MAIN} DESTINATION bin)
@@ -50,4 +49,3 @@ endif ()
 #workaround for qtcreator ide integration. do not remove!
 file(GLOB_RECURSE NODE_DUMMY_TARGETS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h *.cfg *.yaml *.xml *.launch)
 add_custom_target(_dummy_target SOURCES ${NODE_DUMMY_TARGETS})
-
