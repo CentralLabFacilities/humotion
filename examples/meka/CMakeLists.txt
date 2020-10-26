@@ -2,7 +2,6 @@ PROJECT(meka_humotion_server)
 cmake_minimum_required(VERSION 2.8)
 SET(MAIN ${PROJECT_NAME})
 
-set(ENV{ROS_LANG_DISABLE} "genjava")
 set(ROS_BUILD_TYPE Debug)
 
 ################################################################
@@ -61,6 +60,5 @@ set_property(TARGET ${MAIN} PROPERTY INSTALL_RPATH_USE_LINK_PATH TRUE)
 install(TARGETS ${MAIN}
     ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-    RUNTIME DESTINATION bin 
+    RUNTIME DESTINATION bin
 )
-
