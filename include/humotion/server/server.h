@@ -31,6 +31,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <string>
+#include <boost/thread/thread.hpp>
 
 #include "humotion/server/controller.h"
 #include "humotion/server/middleware.h"

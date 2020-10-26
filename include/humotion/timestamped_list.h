@@ -28,7 +28,7 @@
 #ifndef INCLUDE_HUMOTION_TIMESTAMPED_LIST_H_
 #define INCLUDE_HUMOTION_TIMESTAMPED_LIST_H_
 
-#include <boost/thread/mutex.hpp>
+#include <mutex>
 
 #include <list>
 
@@ -53,7 +53,7 @@ public:
 	Timestamp get_first_timestamp();
 
 private:
-	mutable boost::mutex access_mutex_;
+	mutable std::mutex access_mutex_;
 	float interpolate(TimestampedFloat a, TimestampedFloat b, Timestamp timestamp);
 	timestamped_float_list_t tsf_list_;
 };

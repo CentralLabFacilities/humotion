@@ -27,9 +27,10 @@
 
 #include "humotion/server/joint_interface.h"
 #include "humotion/server/controller.h"
+#include <cassert>
 
-using boost::mutex;
 using humotion::server::JointInterface;
+using std::mutex;
 
 //! constructor
 JointInterface::JointInterface() {
@@ -79,7 +80,7 @@ void JointInterface::store_incoming_position(int joint_id, float position, Times
 	// lock the tsd_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock sl(joint_ts_position_map_access_mutex_);
+	const std::lock_guard<std::mutex> sl(joint_ts_position_map_access_mutex_);
 
 	// printf("> humotion: incoming joint position for joint id 0x%02X "
 	// "= %4.2f (ts=%.2f)\n",joint_id,position,timestamp.to_seconds());
@@ -105,7 +106,7 @@ void JointInterface::store_incoming_velocity(int joint_id, float velocity, Times
 	// lock the tsd_list for this access. by doing this we assure
 	// that no other thread accessing this element can disturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(joint_ts_speed_map_access_mutex_);
+	const std::lock_guard<std::mutex> lock(joint_ts_speed_map_access_mutex_);
 
 	// printf("> humotion: incoming joint velocity for joint id 0x%02X = %4.2f "
 	// "(ts=%.2f)\n",joint_id,velocity,timestamp.to_seconds());
@@ -117,7 +118,7 @@ humotion::TimestampedList JointInterface::get_ts_position(int joint_id) {
 	// lock the tsd_list for this access. by doing this we assure
 	// that no other thread accessing this element can disturb the
 	// following atomic instructions
-	mutex::scoped_lock sl(joint_ts_position_map_access_mutex_);
+	const std::lock_guard<std::mutex> sl(joint_ts_position_map_access_mutex_);
 
 	// search map
 	joint_tsl_map_t::iterator it = joint_ts_position_map_.find(joint_id);
@@ -136,7 +137,7 @@ humotion::TimestampedList JointInterface::get_ts_speed(int joint_id) {
 	// lock the tsd_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions
-	mutex::scoped_lock sl(joint_ts_speed_map_access_mutex_);
+	const std::lock_guard<std::mutex> sl(joint_ts_speed_map_access_mutex_);
 
 	// search map
 	joint_tsl_map_t::iterator it = joint_ts_speed_map_.find(joint_id);

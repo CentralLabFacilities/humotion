@@ -27,6 +27,7 @@
 
 #include <string>
 #include <utility>
+#include <cassert>
 
 #include "humotion/server/motion_generator.h"
 

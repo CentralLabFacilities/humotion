@@ -28,8 +28,7 @@
 #ifndef INCLUDE_HUMOTION_SERVER_JOINT_INTERFACE_H_
 #define INCLUDE_HUMOTION_SERVER_JOINT_INTERFACE_H_
 
-#include <boost/thread/mutex.hpp>
-#include <boost/thread/thread.hpp>
+#include <mutex>
 
 #include <cstdint>
 #include <cstdio>
@@ -125,8 +124,8 @@ private:
 	float joint_target_position_[JOINT_ID_ENUM_SIZE];
 	float joint_target_velocity_[JOINT_ID_ENUM_SIZE];
 
-	boost::mutex joint_ts_position_map_access_mutex_;
-	boost::mutex joint_ts_speed_map_access_mutex_;
+	std::mutex joint_ts_position_map_access_mutex_;
+	std::mutex joint_ts_speed_map_access_mutex_;
 	joint_tsl_map_t joint_ts_position_map_;
 	joint_tsl_map_t joint_ts_speed_map_;
 

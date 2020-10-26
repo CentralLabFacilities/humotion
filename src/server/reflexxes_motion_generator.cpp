@@ -26,6 +26,7 @@
  */
 
 #include "humotion/server/eye_motion_generator.h"
+#include <cassert>
 
 using humotion::server::Config;
 using humotion::server::ReflexxesMotionGenerator;

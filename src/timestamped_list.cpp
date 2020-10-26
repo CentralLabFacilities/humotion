@@ -29,8 +29,8 @@
 
 #include "humotion/timestamped_list.h"
 
-using boost::mutex;
 using humotion::TimestampedList;
+using std::mutex;
 
 TimestampedList::TimestampedList(unsigned int s) {
 	// initialize the list to its desired size:
@@ -42,7 +42,7 @@ TimestampedList::TimestampedList(TimestampedList const& l) {
 	// lock the tsf_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(l.access_mutex_);
+	const std::lock_guard<std::mutex> lock(l.access_mutex_);
 
 	// now do a deep copy with locking!
 	tsf_list_ = l.tsf_list_;
@@ -52,7 +52,7 @@ void TimestampedList::copy_tsf_list_to(timestamped_float_list_t* target) {
 	// lock the tsf_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(access_mutex_);
+	const std::lock_guard<std::mutex> lock(access_mutex_);
 
 	*target = tsf_list_;
 }
@@ -61,7 +61,7 @@ humotion::Timestamp TimestampedList::get_first_timestamp() {
 	// lock the tsf_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(access_mutex_);
+	const std::lock_guard<std::mutex> lock(access_mutex_);
 
 	if (tsf_list_.empty()) {
 		return Timestamp(0, 0);
@@ -75,7 +75,7 @@ humotion::Timestamp TimestampedList::get_last_timestamp() {
 	// lock the tsf_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(access_mutex_);
+	const std::lock_guard<std::mutex> lock(access_mutex_);
 
 	if (tsf_list_.empty()) {
 		return Timestamp(0, 0);
@@ -97,7 +97,7 @@ float TimestampedList::get_newest_value() {
 	// lock the tsf_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(access_mutex_);
+	const std::lock_guard<std::mutex> lock(access_mutex_);
 
 	if (tsf_list_.empty()) {
 		printf("> WARNING: requested newest value from empty list, returning 0.0\n");
@@ -113,7 +113,7 @@ float TimestampedList::get_interpolated_value(Timestamp target_ts) {
 	// lock the tsf_list for this access. by doing this we assure
 	// that no other thread accessing this element can diturb the
 	// following atomic instructions:
-	mutex::scoped_lock scoped_lock(access_mutex_);
+	const std::lock_guard<std::mutex> lock(access_mutex_);
 
 	TimestampedFloat previous;
 	// printf("> latency %3.2fms\n", (Timestamped().to_seconds() - target_ts.to_seconds())*1000.0);
