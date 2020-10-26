@@ -112,7 +112,7 @@ bool KorgInput::open_device() {
 	// disable all leds:
 	// 	for(unsigned char id = 0; id<127; id++){
 	// 		Pm_WriteShort(midi_out, TIME_PROC(TIME_INFO), Pm_Message(0xB0, id, 0));
-	// 		usleep(10*1000);
+	// 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	// 	}
 
 	// fancy animation:
@@ -121,7 +121,7 @@ bool KorgInput::open_device() {
 			Pm_WriteShort(midi_out, TIME_PROC(TIME_INFO), Pm_Message(0xB0, id, 127));
 		if (id > 4)
 			Pm_WriteShort(midi_out, TIME_PROC(TIME_INFO), Pm_Message(0xB0, id - 4, 0));
-		usleep(25 * 1000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(25));
 	}
 
 	// 	for(unsigned char id = 0; id<127; id++){

@@ -4,7 +4,8 @@
 #include <string>
 #include <cstdio>
 #include <stdio.h>
-#include <unistd.h>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 using namespace humotion;
@@ -56,7 +57,7 @@ TEST_F(timestamp_Test, init_from_values) {
 	clock_gettime(CLOCK_REALTIME, &tp);
 
 	Timestamp ts_d;
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	Timestamp ts_e;
 
 	// they should be at least 1 second apart:
@@ -93,7 +94,7 @@ TEST_F(timestamp_Test, comparison) {
 
 	// check now() initializer
 	Timestamp c;
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 	Timestamp d;
 	ASSERT_FALSE(c == d);
 	ASSERT_FALSE(c >= d);

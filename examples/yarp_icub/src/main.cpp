@@ -89,7 +89,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	while (humotion_server->ok()) {
-		usleep(1000);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
 
 	return EXIT_SUCCESS;
