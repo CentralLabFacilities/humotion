@@ -98,7 +98,7 @@ void MiddlewareRSB::tick() {
 }
 
 //! callback to handle incoming mouth  target
-void MiddlewareRSB::incoming_mouth_target(boost::shared_ptr<rst::robot::MouthTarget> msg) {
+void MiddlewareRSB::incoming_mouth_target(std::shared_ptr<rst::robot::MouthTarget> msg) {
 	// printf("> incoming mouth_target\n");
 	MouthState mouth_state;
 
@@ -118,7 +118,7 @@ void MiddlewareRSB::incoming_gaze_target(rsb::EventPtr event) {
 	// printf("> incoming gaze_target [P:%3.1f, T:%3.1f, R:%3.1f]\n",
 	// msg->pan(), msg->tilt(), msg->roll());
 
-	boost::shared_ptr<void> ev_data = event->getData();
+	std::shared_ptr<void> ev_data = event->getData();
 	rst::robot::HumotionGazeTarget* msg = (rst::robot::HumotionGazeTarget*)ev_data.get();
 
 	GazeState gaze_state;

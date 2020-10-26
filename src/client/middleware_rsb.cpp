@@ -101,7 +101,7 @@ void MiddlewareRSB::tick() {
 //! send mouth target to server
 void MiddlewareRSB::send_mouth_target() {
 	// build target packet
-	boost::shared_ptr<rst::robot::MouthTarget> request(new rst::robot::MouthTarget());
+	std::shared_ptr<rst::robot::MouthTarget> request(new rst::robot::MouthTarget());
 
 	request->set_position_left(mouth_state.position_left);
 	request->set_position_center(mouth_state.position_center);
@@ -117,7 +117,7 @@ void MiddlewareRSB::send_mouth_target() {
 //! send mouth target to server
 void MiddlewareRSB::send_gaze_target(int gaze_type) {
 	// build target packet
-	boost::shared_ptr<rst::robot::HumotionGazeTarget> request(new rst::robot::HumotionGazeTarget());
+	std::shared_ptr<rst::robot::HumotionGazeTarget> request(new rst::robot::HumotionGazeTarget());
 
 	request->set_pan(gaze_state.pan);
 	request->set_tilt(gaze_state.tilt);
