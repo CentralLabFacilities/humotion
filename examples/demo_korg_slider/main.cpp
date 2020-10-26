@@ -228,4 +228,6 @@ int main(int argc, char** argv) {
 		std::this_thread::sleep_until(timeout);
 		timeout += loop_period;
 	}
+
+	return EXIT_SUCCESS;
 }

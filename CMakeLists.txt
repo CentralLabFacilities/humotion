@@ -24,7 +24,7 @@ INCLUDE(FindPkgConfig)
 
 ##libreflexxes
 #IF (libreflexxes_DIR)
-#  MESSAGE("using libreflexxes_DIR as override ('${libreflexxes_DIR}')")
+#  MESSAGE(STATUS "using libreflexxes_DIR as override ('${libreflexxes_DIR}')")
 #  SET(REFLEXXES_PREFIX ${libreflexxes_DIR})
 #  SET(REFLEXXES_LIBRARY "ReflexxesTypeII")
 #ELSE ()
@@ -41,8 +41,8 @@ SET(REFLEXXES_INCLUDE_DIRS "${REFLEXXES_PREFIX}/include")
 #or is there an easier way to get the absolute lib filename from pkg config files?!
 find_library(REFLEXXES_LIBRARY NAMES ${REFLEXXES_LIBRARIES} HINTS ${REFLEXXES_LIBRARY_DIRS})
 
-MESSAGE("-- using libReflexxesTypeII version ${REFLEXXES_VERSION} from ${REFLEXXES_INCLUDE_DIRS} and ${REFLEXXES_LIBRARY_DIRS}")
-MESSAGE("-- will link against ${REFLEXXES_LIBRARY}")
+MESSAGE(STATUS "using libReflexxesTypeII version ${REFLEXXES_VERSION} from ${REFLEXXES_INCLUDE_DIRS} and ${REFLEXXES_LIBRARY_DIRS}")
+MESSAGE(STATUS "will link against ${REFLEXXES_LIBRARY}")
 
 set(CMAKE_CXX_FLAGS "-g -Wall")
 add_definitions ("-Wall")
