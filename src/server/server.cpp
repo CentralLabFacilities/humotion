@@ -27,8 +27,8 @@
 
 #include <boost/algorithm/string.hpp>
 #include <ros/ros.h>
-#include <string>
 #include <chrono>
+#include <string>
 #include <thread>
 
 #include "humotion/server/middleware_ros.h"

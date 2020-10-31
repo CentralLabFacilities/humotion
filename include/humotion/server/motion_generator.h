@@ -28,9 +28,9 @@
 #ifndef INCLUDE_HUMOTION_SERVER_MOTION_GENERATOR_H_
 #define INCLUDE_HUMOTION_SERVER_MOTION_GENERATOR_H_
 
+#include <chrono>
 #include <map>
 #include <string>
-#include <chrono>
 
 #include "humotion/server/config.h"
 #include "humotion/server/joint_interface.h"

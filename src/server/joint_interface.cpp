@@ -25,9 +25,9 @@
  * Excellence Initiative.
  */
 
-#include "humotion/server/joint_interface.h"
-#include "humotion/server/controller.h"
 #include <cassert>
+#include "humotion/server/controller.h"
+#include "humotion/server/joint_interface.h"
 
 using humotion::server::JointInterface;
 using std::mutex;

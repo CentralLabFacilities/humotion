@@ -25,8 +25,8 @@
  * Excellence Initiative.
  */
 
-#include "humotion/server/eye_motion_generator.h"
 #include <cassert>
+#include "humotion/server/eye_motion_generator.h"
 
 using humotion::server::Config;
 using humotion::server::ReflexxesMotionGenerator;

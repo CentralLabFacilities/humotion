@@ -30,8 +30,7 @@ set(LINT_FILTER ${LINT_FILTER},+build/include_alpha)
 set(LINT_FILTER ${LINT_FILTER},-readability/streams)
 
 # We use C++11 with some restrictions.
-# set(LINT_FILTER ${LINT_FILTER},-build/c++11)
-#
+set(LINT_FILTER ${LINT_FILTER},-build/c++11)
 
 # Consider disabling them if they cause too many false positives.
 # set(LINT_FILTER ${LINT_FILTER},-build/include_what_you_use)
