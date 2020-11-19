@@ -118,7 +118,7 @@ void Server::motion_generation_thread() {
 		}
 
 		std::this_thread::sleep_until(timeout);
-		timeout += loop_period;
+		timeout = std::chrono::steady_clock::now() + loop_period;
 	}
 
 	printf("> joint data arrived, control loop active.\n");
@@ -157,7 +157,7 @@ void Server::motion_generation_thread() {
 		}
 
 		std::this_thread::sleep_until(timeout);
-		timeout += loop_period;
+		timeout = std::chrono::steady_clock::now() + loop_period;
 	}
 
 	printf("> motion generation thread exited.\n");
