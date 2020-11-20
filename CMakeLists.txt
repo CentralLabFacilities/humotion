@@ -12,8 +12,6 @@ endif()
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(ROS_BUILD_TYPE Debug)
-
 ################################################################
 # check for ROS support:
 find_package(catkin REQUIRED COMPONENTS
@@ -25,36 +23,17 @@ find_package(catkin REQUIRED COMPONENTS
     dynamic_reconfigure
 )
 
-IF (NOT catkin_FOUND)
-  MESSAGE(FATAL_ERROR "Error: could not find ROS middleware!")
-ENDIF (NOT catkin_FOUND)
-
-INCLUDE(FindPkgConfig)
-
-##libreflexxes
-#IF (libreflexxes_DIR)
-#  MESSAGE(STATUS "using libreflexxes_DIR as override ('${libreflexxes_DIR}')")
-#  SET(REFLEXXES_PREFIX ${libreflexxes_DIR})
-#  SET(REFLEXXES_LIBRARY "ReflexxesTypeII")
-#ELSE ()
-  PKG_CHECK_MODULES(REFLEXXES REQUIRED libReflexxesTypeII>=1.2.3)
-  IF (NOT REFLEXXES_FOUND)
-    message(FATAL_ERROR "Error: could not find lib libReflexxesTypeII")
-  ENDIF ()
-#ENDIF ()
-
-
+find_package(PkgConfig REQUIRED)
+PKG_CHECK_MODULES(REFLEXXES REQUIRED libReflexxesTypeII>=1.2.3)
 SET(REFLEXXES_LIBRARY_DIRS "${REFLEXXES_PREFIX}/lib")
 SET(REFLEXXES_INCLUDE_DIRS "${REFLEXXES_PREFIX}/include")
-#resolve to absolute library filename
-#or is there an easier way to get the absolute lib filename from pkg config files?!
+# Resolve to absolute library filename
 find_library(REFLEXXES_LIBRARY NAMES ${REFLEXXES_LIBRARIES} HINTS ${REFLEXXES_LIBRARY_DIRS})
 
 MESSAGE(STATUS "using libReflexxesTypeII version ${REFLEXXES_VERSION} from ${REFLEXXES_INCLUDE_DIRS} and ${REFLEXXES_LIBRARY_DIRS}")
 MESSAGE(STATUS "will link against ${REFLEXXES_LIBRARY}")
 
-set(CMAKE_CXX_FLAGS "-g -Wall")
-add_definitions ("-Wall")
+add_compile_options("-Wall")
 
 #######################################
 ## Declare ROS messages and services ##
@@ -101,17 +80,8 @@ catkin_package(
 ###########
 
 ## Specify additional locations of header files
-## Your package locations should be listed before other locations
-include_directories(BEFORE ${Boost_INCLUDE_DIRS} ${REFLEXXES_INCLUDE_DIRS})
-include_directories(BEFORE include)
-
-#make sure to use ros messages from current build
-include_directories(BEFORE ${CATKIN_DEVEL_PREFIX}/include)
-
-#this should be appended:
-include_directories(${catkin_INCLUDE_DIRS})
-
-#link_directories (${Boost_LIBRARY_DIRS} ${REFLEXXES_LIBRARY_DIRS} ${catkin_LIBRARY_DIRS})
+include_directories(include)
+include_directories(SYSTEM ${Boost_INCLUDE_DIRS} ${REFLEXXES_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 
 ## Declare a cpp library
 add_library(${PROJECT_NAME}
@@ -139,8 +109,6 @@ add_library(${PROJECT_NAME}
     src/timestamp.cpp
     src/timestamped_list.cpp
 )
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
