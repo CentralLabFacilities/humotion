@@ -51,18 +51,18 @@ public:
 	void publish_targets();
 	debug_data_t get_debug_data();
 
-	void set_gaze_target(GazeState s);
-	void set_mouth_target(MouthState s);
+	void set_gaze_target(const GazeState& s);
+	void set_mouth_target(const MouthState& s);
 	void set_activated(void);
 	Config* get_config();
 
 private:
 	int bla;
 	debug_data_t debug_data_;
-	void store_debug_data(std::string name, float value);
+	void store_debug_data(const std::string& name, float value);
 
 	void add_motion_generator(MotionGenerator* m);
-	GazeState relative_gaze_to_absolute_gaze(GazeState relative);
+	GazeState relative_gaze_to_absolute_gaze(const GazeState& relative);
 
 	typedef std::vector<MotionGenerator*> motion_generator_vector_t;
 	motion_generator_vector_t motion_generator_vector_;

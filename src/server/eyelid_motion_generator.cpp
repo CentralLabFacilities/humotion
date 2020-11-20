@@ -32,7 +32,7 @@
 using humotion::server::Config;
 using humotion::server::EyelidMotionGenerator;
 
-static std::minstd_rand random_engine;
+static std::minstd_rand RANDOM_ENGINE;
 
 //! constructor
 EyelidMotionGenerator::EyelidMotionGenerator(JointInterface* j, Config* cfg) : EyeMotionGenerator(j, cfg) {
@@ -146,7 +146,7 @@ void EyelidMotionGenerator::start_external_eyeblinks(int duration_left, int dura
 void EyelidMotionGenerator::process_saccadic_eyeblinks() {
 	if (saccade_blink_requested_) {
 		// every n-th's saccade requests an eyeblink
-		if (std::bernoulli_distribution(config->eyeblink_probability_after_saccade)(random_engine)) {
+		if (std::bernoulli_distribution(config->eyeblink_probability_after_saccade)(RANDOM_ENGINE)) {
 			printf("> saccadic eyeblink:\n");
 			start_eyeblink(LEFT, config->eyeblink_duration * 1000.0);
 			start_eyeblink(RIGHT, config->eyeblink_duration * 1000.0);
@@ -162,7 +162,7 @@ void EyelidMotionGenerator::process_periodic_eyeblinks() {
 		std::uniform_real_distribution<float> uniform(config->eyeblink_periodic_distribution_lower,
 		                                              config->eyeblink_periodic_distribution_upper);
 		// random timeout for a new periodic eyeblink
-		std::chrono::duration<float> seconds_to_next_blink(uniform(random_engine));
+		std::chrono::duration<float> seconds_to_next_blink(uniform(RANDOM_ENGINE));
 		periodic_blink_start_time_ =
 		   std::chrono::steady_clock::now() + std::chrono::duration_cast<std::chrono::milliseconds>(seconds_to_next_blink);
 	}

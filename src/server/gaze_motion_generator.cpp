@@ -42,7 +42,7 @@ GazeMotionGenerator::~GazeMotionGenerator() {
 
 //! update gaze target:
 //! \param GazeState with target values for the overall gaze
-void GazeMotionGenerator::set_gaze_target(GazeState new_gaze_target) {
+void GazeMotionGenerator::set_gaze_target(const GazeState& new_gaze_target) {
 	if (requested_gaze_state_.gaze_type == GazeState::GAZETYPE_RELATIVE) {
 		printf("> ERROR: gaze targets should be converted to absolute before calling this\n");
 		exit(EXIT_FAILURE);
@@ -84,7 +84,7 @@ void GazeMotionGenerator::set_gaze_target(GazeState new_gaze_target) {
 	if ((eye_target_l < left_min) || (eye_target_l > left_max) || (eye_target_r < right_min) || (eye_target_r > right_max) ||
 	    (eye_target_ud < ud_min) || (eye_target_ud > ud_max)) {
 		// the eyeball gets close to OMR, activate a neck compensation motion
-		neck_saccade_omr = true;
+		neck_saccade_omr = true; // NOLINT(readability-simplify-boolean-expr)
 	}
 	else {
 		neck_saccade_omr = false;
@@ -105,14 +105,9 @@ bool GazeMotionGenerator::get_eye_saccade_active() {
 	float speed_total_l = sqrt(speed_left * speed_left + speed_tilt * speed_tilt);
 	float speed_total_r = sqrt(speed_right * speed_right + speed_tilt * speed_tilt);
 
-	// thresholding
-	if ((speed_total_l > config->threshold_velocity_eye_saccade) || (speed_total_r > config->threshold_velocity_eye_saccade)) {
-		// this is a saccade
-		saccade_active = true;
-	}
-	else {
-		saccade_active = false;
-	}
+	// this is a saccade if the threshold is exceeded
+	saccade_active =
+	   (speed_total_l > config->threshold_velocity_eye_saccade) || (speed_total_r > config->threshold_velocity_eye_saccade);
 
 	return saccade_active;
 }

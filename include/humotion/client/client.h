@@ -39,14 +39,14 @@ namespace client {
 
 class Client {
 public:
-	Client(std::string name, std::string mw);
+	Client(const std::string& name, std::string mw);
 	~Client();
 
 	bool ok();
 	void tick();
 
-	void update_mouth_target(MouthState s, bool send = false);
-	void update_gaze_target(GazeState s, bool send = false);
+	void update_mouth_target(const MouthState& s, bool send = false);
+	void update_gaze_target(const GazeState& s, bool send = false);
 
 	void send_all();
 

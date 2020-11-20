@@ -46,8 +46,8 @@ public:
 
 	static Timestamp now(void);
 
-	bool is_null(void);
-	double to_seconds(void);
+	bool is_null(void) const;
+	double to_seconds(void) const;
 
 	bool operator>(const Timestamp& cmp) const;
 	bool operator<=(const Timestamp& cmp) const;

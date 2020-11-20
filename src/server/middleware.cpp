@@ -33,7 +33,7 @@ using humotion::server::Middleware;
 
 //! constructor
 //! open a new Middleware instance.
-Middleware::Middleware(std::string scope, Controller* c) {
+Middleware::Middleware(const std::string& scope, Controller* c) {
 	controller_ = c;
 	base_scope_ = scope;
 }

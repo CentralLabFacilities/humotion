@@ -36,7 +36,7 @@ using humotion::client::Middleware;
 
 //! constructor
 //! open a new Middleware instance.
-Middleware::Middleware(std::string scope) {
+Middleware::Middleware(const std::string& scope) {
 	base_scope_ = scope;
 }
 
@@ -47,7 +47,7 @@ Middleware::~Middleware() {
 //! set mouth position
 //! \param MouthState m to set
 //! \param send data to server (optional, use manual call to send_*() to trigger update on server)
-void Middleware::update_mouth_target(MouthState m, bool send) {
+void Middleware::update_mouth_target(const MouthState& m, bool send) {
 	mouth_state_ = m;
 	if (send) {
 		send_mouth_target();
@@ -57,7 +57,7 @@ void Middleware::update_mouth_target(MouthState m, bool send) {
 //! set gaze target
 //! \param GazeState m to set
 //! \param send data to server (optional, use manual call to send_*() to trigger update on server)
-void Middleware::update_gaze_target(GazeState s, bool send) {
+void Middleware::update_gaze_target(const GazeState& s, bool send) {
 	gaze_state_ = s;
 	if (send) {
 		send_gaze_target();

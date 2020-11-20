@@ -110,7 +110,7 @@ debug_data_t Controller::get_debug_data() {
 }
 
 //! store debug data
-void Controller::store_debug_data(std::string name, float value) {
+void Controller::store_debug_data(const std::string& name, float value) {
 	debug_data_[name] = value;
 }
 
@@ -123,7 +123,7 @@ void Controller::publish_targets() {
 	}
 }
 
-humotion::GazeState Controller::relative_gaze_to_absolute_gaze(humotion::GazeState relative) {
+humotion::GazeState Controller::relative_gaze_to_absolute_gaze(const humotion::GazeState& relative) {
 	double pan, tilt, roll;
 	double neck_pan = 0.0;
 	double neck_tilt = 0.0;
@@ -226,13 +226,13 @@ humotion::GazeState Controller::relative_gaze_to_absolute_gaze(humotion::GazeSta
 }
 
 //! activate controller
-void Controller::set_activated(void) {
+void Controller::set_activated() {
 	activated_ = true;
 }
 
 //! update gaze target:
 //! \param GazeState with target values for the overall gaze
-void Controller::set_gaze_target(humotion::GazeState new_gaze_target) {
+void Controller::set_gaze_target(const humotion::GazeState& new_gaze_target) {
 	if (!activated_) {
 		// not yet initialized, ignore incoming targets
 		return;
@@ -259,7 +259,7 @@ void Controller::set_gaze_target(humotion::GazeState new_gaze_target) {
 
 //! update mouth state:
 //! \param MouthState with target values for the mouth joints
-void Controller::set_mouth_target(MouthState s) {
+void Controller::set_mouth_target(const MouthState& s) {
 	if (!activated_) {
 		// not yet initialized, ignore incoming targets
 		return;

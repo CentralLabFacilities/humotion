@@ -17,19 +17,19 @@ protected:
 		s = new Client("test", "ROS");
 	}
 
-	virtual ~client_Test() {
+	~client_Test() override {
 		// clean-up work that doesn't throw exceptions here
 		delete (s);
-		s = NULL;
+		s = nullptr;
 	}
 
 	// if the constructor and destructor are not enough for setting up
 	// and cleaning up each test, you can define the following methods:
-	virtual void SetUp() {
+	void SetUp() override {
 		// code here will be called immediately after the constructor (right before each test).
 	}
 
-	virtual void TearDown() {
+	void TearDown() override {
 		// code here will be called immediately after each test (right
 		// before the destructor).
 	}

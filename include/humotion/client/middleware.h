@@ -40,11 +40,11 @@ namespace client {
 
 class Middleware {
 public:
-	explicit Middleware(std::string name);
+	explicit Middleware(const std::string& name);
 	~Middleware();
 
-	void update_mouth_target(MouthState s, bool send);
-	void update_gaze_target(GazeState s, bool send);
+	void update_mouth_target(const MouthState& s, bool send);
+	void update_gaze_target(const GazeState& s, bool send);
 	void send_all();
 
 	virtual void send_mouth_target() = 0;

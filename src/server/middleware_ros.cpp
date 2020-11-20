@@ -36,7 +36,7 @@
 using humotion::server::MiddlewareROS;
 
 //! constructor
-MiddlewareROS::MiddlewareROS(std::string scope, Controller* c) : Middleware(scope, c) {
+MiddlewareROS::MiddlewareROS(const std::string& scope, Controller* c) : Middleware(scope, c) {
 	ROS_DEBUG_STREAM_NAMED("MiddlewareROS", "will use ros middleware");
 	debug_initialized_ = false;
 
@@ -121,7 +121,7 @@ void MiddlewareROS::dynamic_reconfigure_callback(const humotion::humotionConfig&
 }
 
 //! attach to dynamic reconfigure server
-void MiddlewareROS::attach_to_reconfiguration_server(ros::NodeHandle priv_nodehandle) {
+void MiddlewareROS::attach_to_reconfiguration_server(const ros::NodeHandle& priv_nodehandle) {
 	ROS_DEBUG_STREAM_NAMED("MiddlewareROS", "connecting to dynamic reconfiguration server");
 
 	ros::NodeHandle reconf_node(priv_nodehandle, "humotion/configuration");
@@ -172,7 +172,7 @@ void MiddlewareROS::publish_debug_dataset(debug_data_t debug_data) {
 	}
 }
 
-void MiddlewareROS::publish_debug_data(std::string name, float value) {
+void MiddlewareROS::publish_debug_data(const std::string& name, float value) {
 	debug_topic_map_t::iterator it = debug_topic_map.find(name);
 	if (it == debug_topic_map.end()) {
 		// we have no publisher for this dataset, create one:

@@ -42,8 +42,8 @@ public:
 
 private:
 	void calculate_mouth_target(int upper, int lower);
-	float mouthstate_to_opening(MouthState m, int e);
-	float mouthstate_to_position(MouthState m, int e);
+	float mouthstate_to_opening(const MouthState& m, int e);
+	float mouthstate_to_position(const MouthState& m, int e);
 	void update_mouth_target(int upper_id, int lower_id);
 
 	// minimum mouth opening

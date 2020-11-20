@@ -39,7 +39,7 @@ public:
 	GazeMotionGenerator(JointInterface* j, Config* cfg, int dof, float t);
 	~GazeMotionGenerator();
 
-	void set_gaze_target(GazeState s);
+	void set_gaze_target(const GazeState& s);
 
 protected:
 	GazeState get_current_gaze();

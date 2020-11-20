@@ -53,7 +53,7 @@ debug_data_t MotionGenerator::get_debug_data() {
 }
 
 //! store debug data
-void MotionGenerator::store_debug_data(std::string name, float value) {
+void MotionGenerator::store_debug_data(const std::string& name, float value) {
 	debug_data_[name] = value;
 }
 
@@ -104,7 +104,7 @@ float MotionGenerator::get_current_position(int joint_id) {
 
 //! update gaze target:
 //! \param GazeState with target values for the overall gaze
-void MotionGenerator::set_gaze_target(GazeState new_gaze_target) {
+void MotionGenerator::set_gaze_target(const GazeState& new_gaze_target) {
 	// store value for next iteration
 	requested_gaze_state_ = new_gaze_target;
 
@@ -114,7 +114,7 @@ void MotionGenerator::set_gaze_target(GazeState new_gaze_target) {
 
 //! update mouth state:
 //! \param MouthState with target values for the mouth joints
-void MotionGenerator::set_mouth_target(MouthState s) {
+void MotionGenerator::set_mouth_target(const MouthState& s) {
 	// store value
 	requested_mouth_target_ = s;
 

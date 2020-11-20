@@ -41,7 +41,7 @@ namespace server {
 
 class Server {
 public:
-	Server(std::string name, std::string mw, JointInterface* _joint_interface);
+	Server(const std::string& name, std::string mw, JointInterface* _joint_interface);
 	~Server();
 	bool ok();
 	static const float MOTION_UPDATERATE;

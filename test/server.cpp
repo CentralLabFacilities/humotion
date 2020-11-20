@@ -14,22 +14,22 @@ class server_Test : public ::testing::Test {
 protected:
 	server_Test() {
 		// set-up work for EACH test here
-		s = new Server("test", "ROS", NULL);
+		s = new Server("test", "ROS", nullptr);
 	}
 
-	virtual ~server_Test() {
+	~server_Test() override {
 		// clean-up work that doesn't throw exceptions here
 		delete (s);
-		s = NULL;
+		s = nullptr;
 	}
 
 	// if the constructor and destructor are not enough for setting up
 	// and cleaning up each test, you can define the following methods:
-	virtual void SetUp() {
+	void SetUp() override {
 		// code here will be called immediately after the constructor (right before each test).
 	}
 
-	virtual void TearDown() {
+	void TearDown() override {
 		// code here will be called immediately after each test (right
 		// before the destructor).
 	}
@@ -42,7 +42,7 @@ void dump_incoming_data(Server* s) {
 	SCOPED_TRACE("dump incoming data");
 
 	// make sure it is not null
-	if (s == NULL) {
+	if (s == nullptr) {
 		SCOPED_TRACE("server ptr NULL?");
 		FAIL();
 	}

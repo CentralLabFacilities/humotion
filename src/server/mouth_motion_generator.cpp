@@ -98,7 +98,7 @@ void MouthMotionGenerator::update_mouth_target(int upper_id, int lower_id) {
 //! extract opening from mouth state for given joint enum id
 //! \param MouthState m
 //! \param int enum with joint id
-float MouthMotionGenerator::mouthstate_to_opening(MouthState m, int e) {
+float MouthMotionGenerator::mouthstate_to_opening(const MouthState& m, int e) {
 	switch (e) {
 		default:
 			printf("> get_opening(0x%02X): invalid joint enum!\n", e);
@@ -118,7 +118,7 @@ float MouthMotionGenerator::mouthstate_to_opening(MouthState m, int e) {
 //! extract position from mouth state for given joint enum id
 //! \param MouthState m
 //! \param int enum with joint id
-float MouthMotionGenerator::mouthstate_to_position(MouthState m, int e) {
+float MouthMotionGenerator::mouthstate_to_position(const MouthState& m, int e) {
 	switch (e) {
 		default:
 			printf("> get_position(0x%02X): invalid joint enum!\n", e);

@@ -38,7 +38,7 @@
 using humotion::client::MiddlewareROS;
 
 //! constructor
-MiddlewareROS::MiddlewareROS(std::string scope) : Middleware(scope) {
+MiddlewareROS::MiddlewareROS(const std::string& scope) : Middleware(scope) {
 	// start ros core
 	if (!ros::isInitialized()) {
 		tick_necessary_ = true;

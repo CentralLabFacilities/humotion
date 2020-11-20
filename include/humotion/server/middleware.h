@@ -43,7 +43,7 @@ namespace server {
 
 class Middleware {
 public:
-	Middleware(std::string name, Controller* c);
+	Middleware(const std::string& name, Controller* c);
 	~Middleware();
 
 	virtual bool ok() = 0;

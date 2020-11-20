@@ -31,7 +31,7 @@
 
 using humotion::Timestamp;
 
-Timestamp::Timestamp(void) {
+Timestamp::Timestamp() {
 	// init of an empty timestamp will be assigned to the current system time
 	set(now());
 }
@@ -47,7 +47,7 @@ Timestamp::Timestamp(double dsec) {
 	nsec = fnsec * 1000000000.0;
 }
 
-Timestamp Timestamp::now(void) {
+Timestamp Timestamp::now() {
 	struct timespec tp;
 	clock_gettime(CLOCK_REALTIME, &tp);
 	return Timestamp(tp.tv_sec, tp.tv_nsec);
@@ -62,7 +62,7 @@ void Timestamp::set(Timestamp a) {
 	set(a.sec, a.nsec);
 }
 
-double Timestamp::to_seconds(void) {
+double Timestamp::to_seconds() const {
 	return sec + (static_cast<double>(nsec)) / 1000000000.0;
 }
 
@@ -79,7 +79,7 @@ bool Timestamp::operator<=(const Timestamp& cmp) const {
 	}
 }
 
-bool Timestamp::is_null(void) {
+bool Timestamp::is_null() const {
 	return (sec == 0) && (nsec == 0);
 }
 

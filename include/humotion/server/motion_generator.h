@@ -46,15 +46,15 @@ public:
 	virtual void calculate_targets() = 0;
 	virtual void publish_targets() = 0;
 
-	virtual void set_gaze_target(GazeState s);
-	virtual void set_mouth_target(MouthState s);
+	virtual void set_gaze_target(const GazeState& s);
+	virtual void set_mouth_target(const MouthState& s);
 
 	debug_data_t get_debug_data();
 
 protected:
 	Config* config;
 	debug_data_t debug_data_;
-	void store_debug_data(std::string name, float value);
+	void store_debug_data(const std::string& name, float value);
 
 	float get_current_position(int joint_id);
 	float get_current_speed(int joint_id);

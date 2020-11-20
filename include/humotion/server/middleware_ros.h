@@ -45,7 +45,7 @@ namespace server {
 
 class MiddlewareROS : public Middleware {
 public:
-	MiddlewareROS(std::string name, Controller* c);
+	MiddlewareROS(const std::string& name, Controller* c);
 	~MiddlewareROS();
 	bool ok();
 	void tick();
@@ -54,11 +54,11 @@ public:
 	void publish_debug_dataset(debug_data_t);
 
 private:
-	void publish_debug_data(std::string name, float value);
+	void publish_debug_data(const std::string& name, float value);
 
 	void incoming_mouth_target(const humotion::mouth::ConstPtr& msg);
 	void incoming_gaze_target(const humotion::gaze::ConstPtr& msg);
-	void attach_to_reconfiguration_server(ros::NodeHandle priv_nodehandle);
+	void attach_to_reconfiguration_server(const ros::NodeHandle& priv_nodehandle);
 	void debug_initialize();
 
 	bool tick_necessary_;

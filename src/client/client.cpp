@@ -38,7 +38,7 @@ using humotion::client::Client;
 
 //! constructor
 //! open a new client instance.
-Client::Client(std::string scope, std::string mw) {
+Client::Client(const std::string& scope, std::string mw) {
 	// convert mw to uppercase
 	boost::to_upper(mw);
 
@@ -49,7 +49,7 @@ Client::Client(std::string scope, std::string mw) {
 		middleware_ = new humotion::client::MiddlewareROS(scope);
 	}
 	else {
-		printf("> ERROR: invalid mw '%s' given. RSB support was droppd. please use ROS\n\n", mw.c_str());
+		printf("> ERROR: invalid mw '%s' given. RSB support was dropped. please use ROS\n\n", mw.c_str());
 		exit(EXIT_FAILURE);
 	}
 }
@@ -72,14 +72,14 @@ void Client::tick() {
 //! set mouth position
 //! \param MouthState m to set
 //! \param send data to server (optional, use manual call to send_*() to trigger update on server)
-void Client::update_mouth_target(MouthState m, bool send) {
+void Client::update_mouth_target(const MouthState& m, bool send) {
 	middleware_->update_mouth_target(m, send);
 }
 
 //! set gaze direction
 //! \param GazeState m to set
 //! \param send data to server (optional, use manual call to send_*() to trigger update on server)
-void Client::update_gaze_target(GazeState s, bool send) {
+void Client::update_gaze_target(const GazeState& s, bool send) {
 	middleware_->update_gaze_target(s, send);
 }
 

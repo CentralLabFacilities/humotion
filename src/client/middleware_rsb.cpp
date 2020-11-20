@@ -48,7 +48,7 @@
 using humotion::client::MiddlewareRSB;
 
 //! constructor
-MiddlewareRSB::MiddlewareRSB(string scope) : Middleware(scope) {
+MiddlewareRSB::MiddlewareRSB(const string& scope) : Middleware(scope) {
 	printf("> registering converters\n");
 
 	try {

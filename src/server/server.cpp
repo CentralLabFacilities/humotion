@@ -41,7 +41,7 @@ const float Server::MOTION_UPDATERATE = 50.0;
 
 //! constructor
 //! open a new server instance.
-Server::Server(std::string scope, std::string mw, JointInterface* _joint_interface) {
+Server::Server(const std::string& scope, std::string mw, JointInterface* _joint_interface) {
 	// convert mw to uppercase
 	boost::to_upper(mw);
 

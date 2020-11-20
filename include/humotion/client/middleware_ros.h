@@ -38,7 +38,7 @@ namespace client {
 
 class MiddlewareROS : public Middleware {
 public:
-	explicit MiddlewareROS(std::string name);
+	explicit MiddlewareROS(const std::string& name);
 	~MiddlewareROS();
 
 	void send_mouth_target();
