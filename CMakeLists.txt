@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.1.3)
 project(humotion)
 
+find_program(CLANG_TIDY NAMES clang-tidy clang-tidy-10 clang-tidy-9 clang-tidy-8 clang-tidy-7 clang-tidy-6)
+if (CLANG_TIDY)
+  set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY}")
+endif()
+
 if(NOT "${CMAKE_CXX_STANDARD}")
   set(CMAKE_CXX_STANDARD 11)
 endif()
@@ -201,21 +206,6 @@ endif()
 #add_subdirectory(examples/meka)
 #add_subdirectory(examples/yarp_icub)
 
-
-#################
-## style guide ##
-#################
-set(ENABLE_CPPLINT 1)
-include(${CMAKE_CURRENT_SOURCE_DIR}/stylecheck/CpplintWrapper.cmake)
-CPPLINT_RECURSIVE(cpplint_include
-  ${CMAKE_CURRENT_SOURCE_DIR}/include
-  ${CMAKE_CURRENT_SOURCE_DIR}/include
-  ${CMAKE_CURRENT_BINARY_DIR}/include)
-CPPLINT_RECURSIVE(cpplint_src
-  ${CMAKE_CURRENT_SOURCE_DIR}/src
-  ${CMAKE_CURRENT_SOURCE_DIR}/src
-  ${CMAKE_CURRENT_BINARY_DIR}/src)
-add_dependencies(${PROJECT_NAME} cpplint_src cpplint_include)
 
 #workaround for qtcreator ide integration. do not remove!
 file(GLOB_RECURSE NODE_DUMMY_TARGETS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h *.cfg *.yaml *.xml *.launch)
