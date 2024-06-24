@@ -1,5 +1,5 @@
 // Bring in my package's API, which is what I'm testing
-#include "timestamp.h"
+#include <humotion/timestamp.h>
 #include <gtest/gtest.h>
 #include <string>
 #include <cstdio>
